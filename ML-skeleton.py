@@ -13,8 +13,6 @@ from sklearn.neural_network import MLPClassifier
 import matplotlib.pyplot as plt
 
 
-
-
 df = pd.read_csv("network_training.csv")
 #print(df[:10])
 # You might not need this next line if you do not care about losing information about flow_id etc. All you actually need to
@@ -27,10 +25,13 @@ X = df[features]
 y = df['label']
 
 acc_scores = 0
+acc_results = np.array([])
+prec_results = np.array([])
+rec_results = np.array([])
+f1_results = np.array([])
 for i in range(0, 10):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
-    results = []
-
+    
     #Decision Trees
     clf = tree.DecisionTreeClassifier()
     clf.fit(X_train, y_train)
@@ -46,10 +47,27 @@ for i in range(0, 10):
 
 
     #here you are supposed to calculate the evaluation measures indicated in the project proposal (accuracy, F-score etc)
-    result = clf.score(X_test, y_test)  #accuracy score 
-    results.append(result)
-    print(result)
-    
+    acc_result = clf.score(X_test, y_test)  #accuracy score 
+    y_pred = clf.predict(X_test)
+    prec_result = precision_score(y_test, y_pred, average="micro")
+    rec_result = recall_score(y_test, y_pred, average="micro")
+    f1_result = f1_score(y_test, y_pred, average="micro")
+    prec_results = np.append(prec_results, prec_result)
+    acc_results = np.append(acc_results, acc_result)
+    rec_results = np.append(rec_results, rec_result)
+    f1_results = np.append(f1_results, f1_result)
+    #print(acc_result)
+    #print(prec_result)
+    #print(rec_result)
+    print(f1_result)
+
+#print(results)
 print("Average")
-avg= np.average(results)
-print(avg)
+#avg= np.average(acc_results)
+#p_avg = np.average(prec_results)
+#r_avg = np.average(rec_results)
+f_avg = np.average(f1_results)
+#print(avg)
+#print(p_avg)
+#print(r_avg)
+print(f_avg)
