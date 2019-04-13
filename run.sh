@@ -15,5 +15,5 @@ echo "tran_proto, avg_sent_len, avg_rec_len, avg_sent_ttl, average_rec_ttl, labe
 
 for i in {1..10}
 do
-	python processor.py ./tmp/sniff${i}.csv label >> ./result/result${time}.csv
+	python processor.py ./tmp/sniff${i}.csv $label >> ./result/result${time}.csv
 done
