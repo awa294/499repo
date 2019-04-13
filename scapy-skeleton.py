@@ -128,12 +128,15 @@ def fields_extraction(x):
         csv["UDP dport"].append(unknown)
         csv["UDP len"].append(unknown)
         csv["UDP chksum"].append(unknown)
-    
+   
+    """ 
     if "Raw" in x:
         csv["Raw"].append(x["Raw"].load)
     else:
         csv["Raw"].append(unknown)
-    
+    """    
+    csv["Raw"].append(unknown)
+
     csv["time"].append(x.time)
     csv["Label"].append(label)
     
