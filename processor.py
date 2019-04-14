@@ -49,7 +49,7 @@ for index, row in df.iterrows():
 
 			if (flow_ip, c_port, s_port, t_prot) not in flows:
 				flows.append((flow_ip, c_port, s_port, t_prot))
-				data.append([int(t_prot == 17), 0, 0, 0, 0, 0])
+				data.append([t_prot, 0, 0, 0, 0, 0])
 			
 			index = flows.index((flow_ip, c_port, s_port, t_prot))
 
