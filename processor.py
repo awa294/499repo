@@ -58,9 +58,9 @@ for index, row in df.iterrows():
 			index = flows.index((flow_ip, c_port, s_port, t_prot))
 
 			# Check validity if IP length and ttl
-			if math.isnan(row['IP len']):
+			if not ((isinstance(row['IP len'], int) or (isinstance(row['IP len'], int)))):
 				row['IP len'] = '0'
-			if math.isnan(row['IP ttl']):
+			if not ((isinstance(row['IP ttl'], int) or (isinstance(row['IP ttl'], int)))):
 				row['IP ttl'] = '0'
 
 			# Add the data to the relevent columns (Either in or out)
