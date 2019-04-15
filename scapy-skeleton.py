@@ -5,12 +5,6 @@ from collections import OrderedDict
 import pandas
 import json
 
-"""
-#https://stackoverflow.com/questions/25657220/how-to-read-whole-ip-layer-and-tcp-layer-from-a-packet-when-using-scapy
-#Parser classes for scapy packets 
-#Zhi Yuan
-"""
-
 #arguments: label_number packet_count timout_val csv_to_write_to
 if len(sys.argv) < 5:
     raise Exception("not enough args")
@@ -33,10 +27,9 @@ for elem in diction:
 
 #define unknow value and get label number
 unknown = "???"
-
 label = int(sys.argv[1])
 
-#copy fields from packets into dictionary; use palceholder for NA values (ex: UDP fields when pakcets uses TCP) 
+#copy fields from packets into dictionary; use placeholder for NA values (ex: UDP fields when packet uses TCP) 
 def fields_extraction(x):
     if "Ethernet" in x: 
         csv["Ethernet Src"].append(x["Ethernet"].src)
@@ -128,13 +121,7 @@ def fields_extraction(x):
         csv["UDP dport"].append(unknown)
         csv["UDP len"].append(unknown)
         csv["UDP chksum"].append(unknown)
-   
-    """ 
-    if "Raw" in x:
-        csv["Raw"].append(x["Raw"].load)
-    else:
-        csv["Raw"].append(unknown)
-    """    
+    
     csv["Raw"].append(unknown)
 
     csv["time"].append(x.time)
@@ -142,13 +129,8 @@ def fields_extraction(x):
     
 
 #sniff packets
-pkts = sniff(prn = fields_extraction, filter = "(ip or ip6) && (tcp or udp)", count = int(sys.argv[2]), timeout = int(sys.argv[3]))
+sniff(prn = fields_extraction, filter = "(ip or ip6) && (tcp or udp)", count = int(sys.argv[2]), timeout = int(sys.argv[3]))
 
 #convert final dictionary to a dataframe and write it out to a csv
 pkt_frame = pandas.DataFrame().from_dict(csv)
 pkt_frame.to_csv("./" + sys.argv[4])
-
-
-
-
-# print pkts[0].show()
