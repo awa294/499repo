@@ -11,7 +11,7 @@ s.connect(("8.8.8.8", 80))
 self_ip = s.getsockname()[0]
 s.close()
 
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
 	raise Exception("not enough args")
 
 if len(sys.argv) == 3:
